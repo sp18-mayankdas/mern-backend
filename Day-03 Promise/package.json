@@ -1,0 +1,22 @@
+{
+  "name": "promise",
+  "version": "1.1.0",
+  "description": "Question and examples on promises , helps to understand the inner working of promise , how asynchronous javascript is working , how promises are being executed , Async/Await and how can we read file synchrnously and asynchronously",
+  "keywords": [
+    "promise",
+    "javascript",
+    "asynchronous-javascript",
+    "readFile",
+    "nodeJS"
+  ],
+  "license": "MIT",
+  "author": "Mayank Kumar Das",
+  "type": "module",
+  "main": "promise.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "xlsx": "^0.18.5"
+  }
+}

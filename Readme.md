@@ -1,0 +1,12 @@
+# Promise.all()
+- When you need to make parallel API Calls and gets the results.
+- If you have 10 user IDs , and you want to make 10 parallel API calls and gets the results for 10 different users
+- Used to handle multiple promises together.
+- Will take an iterables of promises 
+- Handles multiple API calls , multiple promises 
+- It will take all of the API call to finish if all the promises are success.
+- As soon as any of the promises get rejected promise.all will throw an error.
+- Promise.all will be a failure.
+- so , the output will be error , and the error will be of the promise that gets rejected.
+-  It will not wait for other promises to get successful or whatever(other promises might get rejected , might get success)
+- So , If all the promises are success , it will give you the collective result
