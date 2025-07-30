@@ -30,12 +30,12 @@ Promise.any([promiseA, promiseB, promiseC])
     .catch((error) => console.log("Promise.any() Error:", error));
 
 // Promise.race()
-Promise.race([promiseB, promiseC])
+Promise.race([promiseA, promiseB, promiseC])
     .then((result) => console.log("Result of Promise.race():", result))
     .catch((error) => console.log("Promise.race() Error:", error));
 
 // Promise.all()
-Promise.all([promiseB, promiseC])
+Promise.all([promiseA, promiseB, promiseC])
     .then((results) => console.log("Result of Promise.all():", results))
     .catch((error) => console.log("Promise.all() Error:", error));
 
@@ -57,7 +57,6 @@ async function handlePromise() {
     const data = await promiseAsync;
     console.log(promiseAsync);
     console.log(data);
-    console.log("Hello");
 
 }
 
