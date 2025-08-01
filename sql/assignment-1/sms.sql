@@ -1,3 +1,4 @@
+-- Enum type for gender
 CREATE TYPE gender_enum AS ENUM ('Male', 'Female', 'Other');
 
 -- Create students table
@@ -34,6 +35,19 @@ CREATE TABLE enrollments (
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+-- ENUM type for status
+CREATE TYPE enrollment_status AS ENUM ('Enrolled', 'Dropped');
+
+-- Create student_status Table
+CREATE TABLE student_status (
+  id SERIAL PRIMARY KEY,
+  enrollment_id INT NOT NULL,
+  status enrollment_status NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+  FOREIGN KEY (enrollment_id) REFERENCES enrollments(enrollment_id)
+);
+
 -- Retrieve all records from students
 SELECT * FROM students
 ORDER BY id ASC;
@@ -45,6 +59,10 @@ ORDER BY id ASC;
 -- Retrieve all records from enrollments
 SELECT * FROM enrollments
 ORDER BY enrollment_id ASC;
+
+-- Retrieve all records from student_status
+SELECT * FROM student_status
+ORDER BY id ASC;
 
 -- Insert data into students
 INSERT INTO students (name, age, gender, email, phone) VALUES
@@ -84,6 +102,23 @@ INSERT INTO enrollments (student_id, course_id, enrollment_date) VALUES
 (7, 2, '2024-07-03'),
 (8, 2, '2024-07-05'),
 (9, 1, '2024-07-07');
+
+-- Insert data into student_status 
+INSERT INTO student_status (enrollment_id, status) VALUES
+(2, 'Enrolled'),
+(3, 'Dropped'),
+(4, 'Completed'),
+(5, 'Enrolled'),
+(6, 'Dropped'),
+(7, 'Completed'),
+(8, 'Enrolled'),
+(9, 'Dropped'),
+(10, 'Completed'),
+(11, 'Enrolled'),
+(12, 'Dropped'),
+(13, 'Completed'),
+(14, 'Enrolled'),
+(15, 'Dropped');
 
 -- Remove all records from students 
 TRUNCATE TABLE students CASCADE;
@@ -139,7 +174,14 @@ SET fees = 5500
 WHERE course_name = 'Math';
 
 -- Remove all enrollments for a dropped-out student
-
+DELETE FROM enrollments
+WHERE student_id IN (
+  SELECT e.student_id
+  FROM enrollments e
+  JOIN student_status s ON e.enrollment_id = s.enrollment_id
+  GROUP BY e.student_id
+  HAVING COUNT(e.student_id) = COUNT(e.student_id) FILTER (WHERE s.status = 'Dropped')
+);
 
 -- Update duration for a course
 UPDATE courses
